@@ -76,3 +76,54 @@ Includes an **admin panel** for managing users, categories, and animal approvals
 - Animal  
 - Category  
 - AdoptionRequest  
+
+## ▶️ Run the Application
+
+### 1. Clone the repository
+```bash
+git clone <repo-url>
+cd Pet-Adoption-Application
+```
+
+---
+
+### 2. Run the backend (Spring Boot)
+```bash
+cd pet-adoption-server
+mvn spring-boot:run
+```
+
+Backend runs on: **http://localhost:8080**
+
+---
+
+### 3. Run the frontend (React)
+```bash
+cd client
+npm install
+npm start
+```
+
+Frontend runs on: **http://localhost:3000**
+
+---
+
+## ⚙️ Environment Variables
+
+### Frontend (`client/.env`)
+Create a `.env` file inside the client folder:
+
+```env
+REACT_APP_API_URL=http://localhost:8080
+```
+
+---
+
+### Backend (`application.properties`)
+Configure your database connection:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/pet_adoption
+spring.datasource.username=YOUR_USERNAME
+spring.datasource.password=YOUR_PASSWORD
+```
