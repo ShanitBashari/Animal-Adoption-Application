@@ -1,81 +1,78 @@
-# 🐾 Pet Adoption Web Application – Frontend
+# 🐾 Pet Adoption Web Application
 
-This repository contains the **client-side (frontend)** of the **Pet Adoption Web Application**, developed as a final project.
+A full-stack web application for managing pet adoption listings and adoption requests.
 
-The application provides an intuitive and user-friendly interface for managing pet adoptions, allowing users to browse animals, publish pets for adoption, and track adoption requests.
-
----
-
-## 🎯 Project Goals
-
-- Create a modern, responsive user interface for a pet adoption system  
-- Support different user roles (animal owners & adopters)  
-- Demonstrate frontend architecture, routing, and state management  
-- Focus on usability, accessibility, and clean UI/UX design  
+Built as a final project using **React (frontend)** and **Spring Boot (backend)**, the system allows users to browse pets, publish animals, send adoption requests, and manage their activity.  
+Includes an **admin panel** for managing users, categories, and animal approvals.
 
 ---
 
-## 🖥️ Technologies Used
+## 🧱 Tech Stack
 
-- **React** (Functional Components & Hooks)
-- **React Router DOM** – client-side routing
-- **Material UI (MUI)** – UI components & styling
-- **JavaScript (ES6+)**
-- **CSS-in-JS (MUI `sx` props)**
-- **Git & GitHub** – version control
+**Frontend**
+- React
+- React Router DOM
+- Material UI (MUI)
 
----
+**Backend**
+- Java 17 + Spring Boot
+- Spring Security + JWT
+- Spring Data JPA
+- Maven
 
-## 📄 Pages & Features
-
-### 🏠 Home Page
-- Displays all available animals for adoption
-- Live search and filtering
-- Hover effects and responsive grid layout
-- Navigation to animal details
-
-### 🐶 Animal Details Page
-- Detailed view of a selected animal
-- Image, description, category, size, gender, location
-- Owner contact information
-- “Adopt Now” call-to-action
-
-### ➕ Add Animal Page
-- Form for publishing a new animal for adoption
-- Client-side validation
-- Image upload with preview
-- Success feedback (Snackbar)
-- Clean and structured layout
-
-### 🐾 My Animals
-- Displays animals published by the current user
-- Management actions (view / edit / delete – mock)
-- Status indicators
-- Centered and responsive layout
-
-### ❤️ My Adoption Requests
-- Displays adoption requests submitted by the user
-- Request status (Pending / Approved / Rejected)
-- Navigation to animal details
-- Cancel request option (mock)
+**Database**
+- PostgreSQL
 
 ---
 
-## 🎨 UI / UX Highlights
+## ✨ Main Features
 
-- Fully responsive design (desktop, tablet, mobile)
-- Dark theme with consistent color palette
-- Clear navigation with hamburger menu
-- Contextual page descriptions for better usability
-- Accessible and readable typography
+- Browse and search animals
+- Add, edit, and manage personal listings
+- Send and track adoption requests
+- Approve/reject requests (owner side)
+- Admin dashboard for managing users, categories, and animals
+- Secure authentication with JWT
 
 ---
 
-## 📂 Project Structure
+## 📄 Pages
 
-```text
-src/
- ├─ components/      # Reusable UI components
- ├─ pages/           # Application pages
- ├─ App.js           # Routing configuration
- └─ index.js         # Application entry point
+- **Home** – browse and filter animals  
+- **Animal Details** – full pet information + adoption action  
+- **Add / Edit Animal** – create and manage listings  
+- **My Listings** – manage user’s animals  
+- **My Requests** – track sent adoption requests  
+- **Requests for My Listings** – manage received requests  
+- **Admin Dashboard** – system management  
+
+---
+
+## 🧠 Business Logic
+
+- Users cannot adopt their own animals  
+- Requests allowed only for available animals  
+- No duplicate pending requests per user/animal  
+- Approving a request:
+  - marks animal as **ADOPTED**
+  - rejects all other pending requests  
+- Animals with existing requests are marked **INACTIVE** instead of deleted  
+- New animals require admin approval  
+
+---
+
+## 🔐 Security
+
+- JWT-based authentication  
+- Role-based authorization  
+- Protected API endpoints  
+- Password hashing with BCrypt  
+
+---
+
+## 🗃️ Core Entities
+
+- User  
+- Animal  
+- Category  
+- AdoptionRequest  
