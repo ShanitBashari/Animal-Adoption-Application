@@ -111,11 +111,16 @@ function AdminAnimalsPage() {
           icon: <CancelIcon sx={{ fontSize: 16 }} />
         };
       case "PENDING":
-      default:
         return {
           label: "Pending",
           color: "warning",
           icon: <HourglassTopIcon sx={{ fontSize: 16 }} />
+        };
+      default:
+        return {
+          label: "adopted",
+          color: "primary",
+          icon: <CheckCircleIcon sx={{ fontSize: 16 }} />
         };
     }
   }

@@ -297,8 +297,13 @@ export const CategoriesApi = {
   /**
    * Fetches active categories for public dropdowns.
    */
-  listActive: () => request(`/api/categories`),
+  listActive: () => request(`/api/categories/active`),
 
+  /**
+   * Fetches all categories.
+   */
+  listAll: () => request(`/api/categories`),
+  
   /**
    * Fetches all categories for admin management.
    */

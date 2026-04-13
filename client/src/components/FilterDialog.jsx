@@ -114,7 +114,7 @@ export default function FilterDialog({
           >
             <MenuItem value="">All</MenuItem>
             {categories.map((c) => (
-              <MenuItem key={c.id ?? c.name} value={c.id ?? c.name}>
+              <MenuItem key={c.id ?? c.name} value={c.name ?? c}>
                 {c.name ?? c}
               </MenuItem>
             ))}

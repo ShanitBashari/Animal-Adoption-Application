@@ -30,9 +30,21 @@ public class CategoryController {
      *
      * @return sorted list of active categories
      */
-    @GetMapping
+    @GetMapping("/active")
     public ResponseEntity<List<CategoryDto>> getAllActive() {
         List<CategoryDto> categories = categoryService.findAllActive();
+        List<CategoryDto> sortedCategories = sortCategoriesByName(categories);
+        return ResponseEntity.ok(sortedCategories);
+    }
+
+    /**
+     * Returns all categories sorted alphabetically by name.
+     *
+     * @return sorted list of all categories
+     */
+    @GetMapping
+    public ResponseEntity<List<CategoryDto>> getAll() {
+        List<CategoryDto> categories = categoryService.findAll();
         List<CategoryDto> sortedCategories = sortCategoriesByName(categories);
         return ResponseEntity.ok(sortedCategories);
     }

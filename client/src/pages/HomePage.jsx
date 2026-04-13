@@ -103,7 +103,7 @@ function HomePage() {
 
     async function loadCategories() {
       try {
-        const data = await CategoriesApi.listActive();
+        const data = await CategoriesApi.listAll();
         const arr = Array.isArray(data) ? data : [];
 
         arr.sort((a, b) => {
@@ -130,13 +130,7 @@ function HomePage() {
 
     const c = animal.category;
 
-    if (!c && (animal.categoryName || animal.category_name)) {
-      return animal.categoryName || animal.category_name;
-    }
-
     if (typeof c === "string") return c;
-    if (typeof c === "number") return "";
-    if (typeof c === "object") return c.name || c.label || "";
 
     return "";
   }
@@ -157,17 +151,10 @@ function HomePage() {
 
     const selectedCategory = String(filters.category || "");
     const animalCategoryName = String(categoryNameFromAnimal(animal) || "");
-    const animalCategoryId =
-      animal.category && typeof animal.category === "object" && animal.category.id
-        ? String(animal.category.id)
-        : animal.category
-          ? String(animal.category)
-          : "";
 
     const matchesCategory =
       !selectedCategory ||
-      animalCategoryName === selectedCategory ||
-      animalCategoryId === selectedCategory;
+      animalCategoryName === selectedCategory;
 
     const ageNum =
       typeof animal.age === "number" ? animal.age : Number(animal.age) || 0;

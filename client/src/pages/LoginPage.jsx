@@ -59,22 +59,6 @@ function LoginPage() {
     return Object.keys(temp).length === 0;
   };
 
-
-  /**
-   * Converts API error responses into user-friendly messages.
-   */
-  const toFriendlyMessage = (err) => {
-    const status = err?.status;
-
-    if (status === 401) return "Invalid username or password";
-    if (status === 403) return "You are not allowed to login";
-    if (status === 400) return err?.message || "Invalid input";
-    if (status === 500) return "Server error. Please try again.";
-
-    return err?.message || "Login failed";
-  };
-
-
   /**
    * Handles form submission:
    * 1. validates inputs
@@ -90,14 +74,15 @@ function LoginPage() {
     setServerError("");
 
     try {
-      await login(values.username.trim(), values.password);
+      const res = await login(values.username.trim(), values.password);
+      console.log(res)
 
       const params = new URLSearchParams(location.search);
       const redirect = params.get("redirect") || "/";
 
       navigate(redirect, { replace: true });
     } catch (err) {
-      setServerError(toFriendlyMessage(err));
+      setServerError(err?.message);
     } finally {
       setSubmitting(false);
     }

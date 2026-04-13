@@ -5,6 +5,7 @@ import com.adoption.petadoptionserver.dto.LoginRequest;
 import com.adoption.petadoptionserver.dto.RegisterRequest;
 import com.adoption.petadoptionserver.dto.UserDto;
 import com.adoption.petadoptionserver.enums.UserRole;
+import com.adoption.petadoptionserver.exception.AuthenticationException;
 import com.adoption.petadoptionserver.interfaces.AuthService;
 import com.adoption.petadoptionserver.model.User;
 import com.adoption.petadoptionserver.repository.UserRepository;
@@ -132,7 +133,7 @@ public class AuthServiceImpl implements AuthService {
 
         if (Boolean.FALSE.equals(user.getEnabled())) {
             log.warn("Login failed. User is disabled. username={}", username);
-            throw new AuthenticationException("User is disabled");
+            throw new AuthenticationException("You are not allowed to login");
         }
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
@@ -164,13 +165,4 @@ public class AuthServiceImpl implements AuthService {
         return response;
     }
 
-    /**
-     * Custom runtime exception used for authentication failures.
-     */
-    public static class AuthenticationException extends RuntimeException {
-
-        public AuthenticationException(String message) {
-            super(message);
-        }
-    }
 }
