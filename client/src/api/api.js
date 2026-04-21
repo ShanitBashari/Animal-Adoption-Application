@@ -215,7 +215,6 @@ export const AnimalsApi = {
 export const RequestsApi = {
   /**
    * Fetches adoption requests with optional filtering by user or animal.
-   * Keep only if still needed for admin/debug purposes.
    */
   async list(params = {}) {
     const query = new URLSearchParams();

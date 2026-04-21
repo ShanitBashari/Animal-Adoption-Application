@@ -309,18 +309,6 @@ export default function AddAnimalForm({
             SelectProps={{ MenuProps: menuProps }}
             sx={{ flex: 1 }}
           >
-            {catsLoading && (
-              <MenuItem value="">
-                <em>Loading...</em>
-              </MenuItem>
-            )}
-
-            {!catsLoading && categories.length === 0 && (
-              <MenuItem value="">
-                <em>No categories</em>
-              </MenuItem>
-            )}
-
             {categories.map((c) => (
               <MenuItem key={c.id ?? c.name} value={c.name}>
                 {c.name}
@@ -328,12 +316,29 @@ export default function AddAnimalForm({
             ))}
           </TextField>
 
-          <LocationAutocomplete
-            value={form.location}
-            onChange={(val) => setForm({ ...form, location: val || "" })}
+          <TextField
+            type="number"
+            required
+            label="Age"
+            value={form.age === null ? "" : form.age}
+            onChange={(e) => {
+              const raw = e.target.value;
+
+              if (raw === "") return setForm({ ...form, age: "" });
+
+              let n = parseInt(raw, 10);
+              if (Number.isNaN(n)) return setForm({ ...form, age: "" });
+
+              if (n < 0) n = 0;
+              if (n > 50) n = 50;
+
+              setForm({ ...form, age: n });
+            }}
+            sx={{ flex: 1 }}
+            inputProps={{ min: 0, max: 50, step: 1 }}
           />
         </Box>
-
+        
         <Box sx={{ display: "flex", gap: 2 }}>
           <TextField
             select
@@ -362,49 +367,10 @@ export default function AddAnimalForm({
             <MenuItem value="Large">Large</MenuItem>
           </TextField>
         </Box>
-
-        <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-          <TextField
-            type="number"
-            required
-            label="Age"
-            value={form.age === null ? "" : form.age}
-            onChange={(e) => {
-              const raw = e.target.value;
-
-              if (raw === "") return setForm({ ...form, age: "" });
-
-              let n = parseInt(raw, 10);
-
-              if (Number.isNaN(n)) return setForm({ ...form, age: "" });
-
-              // Keep age within the allowed range.
-              if (n < 0) n = 0;
-              if (n > 50) n = 50;
-
-              setForm({ ...form, age: n });
-            }}
-            disabled={form.age === null}
-            fullWidth
-            inputProps={{ min: 0, max: 50, step: 1 }}
+          <LocationAutocomplete
+            value={form.location}
+            onChange={(val) => setForm({ ...form, location: val || "" })}
           />
-
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={form.age === null}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    setForm({ ...form, age: null });
-                  } else {
-                    setForm({ ...form, age: "" });
-                  }
-                }}
-              />
-            }
-            label="Unknown"
-          />
-        </Box>
 
         <Button
           component="label"
